@@ -30,7 +30,12 @@ public class WikimediaChangesHandler implements BackgroundEventHandler {
     @Override
     public void onMessage(String s, MessageEvent messageEvent) throws Exception {
         LOGGER.info(String.format("event data --> %s", messageEvent.getData()));
-        kafkaTemplate.send(topic, messageEvent.getData());
+        kafkaTemplate.send(topic, messageEvent.getData()).thenAccept(result -> {
+            System.out.println("Message sent successfully: "+ result.getRecordMetadata());
+        }).exceptionally(ex -> {
+            System.err.println("Message failed: "+ ex.getMessage());
+            return null;
+        });
     }
 
     @Override

@@ -42,7 +42,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>net.javaguideszain1.Main</mainClass>
+                    <mainClass>net.javaguideszain1.SpringBootConsumerApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

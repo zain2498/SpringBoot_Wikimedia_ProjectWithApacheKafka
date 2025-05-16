@@ -19,10 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class WikimediaChangesProducer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WikimediaChangesProducer.class);
-
-    @Value("${kafka.topic.name}")
-    private String topicName;
-
     private KafkaTemplate<String, String> kafkaTemplate;
 
     public WikimediaChangesProducer(KafkaTemplate<String, String> kafkaTemplate) {
@@ -31,7 +27,7 @@ public class WikimediaChangesProducer {
 
     public void sendMessage() throws InterruptedException {
 
-        BackgroundEventHandler eventHandler = new WikimediaChangesHandler(kafkaTemplate, topicName);
+        BackgroundEventHandler eventHandler = new WikimediaChangesHandler(kafkaTemplate, "wikimedia_recentchange");
         URI url = URI.create("https://stream.wikimedia.org/v2/stream/recentchange");
 
         HttpConnectStrategy connectStrategy = HttpConnectStrategy
